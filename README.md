@@ -297,7 +297,6 @@ public class SistemaVendas
 3. Operadores de índice `^` e intervalo `..` simplificam manipulação de coleções
 4. LINQ é poderoso para manipulação de dados, mas use com moderação em grandes conjuntos
 
-## 📚 Recursos Adicionais
+## 📚 Referências
 - [Documentação Oficial da Microsoft](https://docs.microsoft.com/pt-br/dotnet/csharp/)
-- Cursos online
-- Comunidades de desenvolvedores
+- [Microsoft .Net Learn C#]([https://docs.microsoft.com/pt-br/dotnet/csharp/](https://dotnet.microsoft.com/en-us/learn/csharp))
