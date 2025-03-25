@@ -17,14 +17,13 @@
 
 ### Estrutura Básica
 ```csharp
-namespace VendasProdutos 
+namespace VendasProdutos;
+
+public class Program
 {
-    public class Program 
+    public static void Main(string[] args) 
     {
-        public static void Main(string[] args) 
-        {
-            Console.WriteLine("Bem-vindo ao Sistema de Vendas!");
-        }
+        Console.WriteLine("Bem-vindo ao Sistema de Vendas!");
     }
 }
 ```
