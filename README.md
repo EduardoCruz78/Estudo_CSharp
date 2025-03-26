@@ -298,4 +298,4 @@ public class SistemaVendas
 
 ## 📚 Referências
 - [Documentação Oficial da Microsoft](https://docs.microsoft.com/pt-br/dotnet/csharp/)
-- [Microsoft .Net Learn C#]([https://docs.microsoft.com/pt-br/dotnet/csharp/](https://dotnet.microsoft.com/en-us/learn/csharp))
+- [Microsoft .Net Learn C#](https://dotnet.microsoft.com/en-us/learn/csharp)
