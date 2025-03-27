@@ -12,10 +12,14 @@
 8. [Programação Orientada a Objetos](#programação-orientada-a-objetos)
 9. [Métodos Especiais](#métodos-especiais)
 10. [Sintaxes Avançadas](#sintaxes-avançadas)
+11. [Recursos Avançados do .NET](#recursos-avançados-do-net)
 
-## 🔍 Fundamentos da Linguagem
+# 🔍 Fundamentos da Linguagem C#
 
-### Estrutura Básica
+## Estrutura Básica de um Programa
+```
+Todo programa em C# tem uma estrutura básica que funciona como o esqueleto de um projeto. É como a planta de uma casa: define onde tudo começa e como as coisas se organizam. Aqui está um exemplo simples:
+
 ```csharp
 namespace VendasProdutos;
 
@@ -27,6 +31,54 @@ public class Program
     }
 }
 ```
+
+Vamos desmontar esse código pedaço por pedaço pra entender o que cada parte faz.
+
+### Dissecando a Estrutura
+
+1. **`namespace VendasProdutos;`**
+   - **O que é?** Um `namespace` é como uma pasta que organiza seu código. Ele ajuda a evitar confusão se você tiver várias partes no projeto com nomes parecidos.
+   - **Pra que serve?** Imagine que você tem dois arquivos chamados `Program`. O `namespace` diz "esse `Program` é do sistema de vendas, não do estoque". No exemplo, `VendasProdutos` é o nome da "pasta".
+   - **Detalhe:** O ponto e vírgula `;` no final é como um "pronto, acabou essa linha".
+
+2. **`public class Program`**
+   - **O que é?** Uma `class` é como uma caixinha que guarda pedaços de código relacionados. Aqui, criamos uma chamada `Program`.
+   - **Pra que serve?** É o lugar onde colocamos as instruções do nosso programa. O `public` significa que essa caixinha pode ser vista e usada por outras partes do código (se precisar).
+   - **Curiosidade:** O nome `Program` é comum, mas poderia ser qualquer coisa, tipo `MinhaApp`.
+
+3. **`{ }` (chaves)**
+   - **O que é?** As chaves `{` e `}` marcam o começo e o fim de um bloco de código. Tudo que tá dentro delas pertence à `class Program`.
+   - **Pra que serve?** É como dizer "o que tá aqui dentro é meu". Elas organizam o código e evitam bagunça.
+
+4. **`public static void Main(string[] args)`**
+   - **O que é?** Essa é a função principal, o "botão de start" do programa. Todo programa em C# precisa de um `Main` pra começar a rodar.
+   - **Pra que serve?** Quando você executa o programa, o computador procura o `Main` e começa a seguir as instruções que estão dentro dele.
+   - **Dissecando os termos:**
+     - `public`: Outras partes do código podem achar esse `Main`.
+     - `static`: Significa que o `Main` pertence à classe `Program`, não a um objeto específico (não precisa "criar" um `Program` pra usar).
+     - `void`: Diz que essa função não devolve nada (só faz algo, não entrega um resultado).
+     - `string[] args`: É uma lista de textos que o programa pode receber quando é iniciado (como argumentos na linha de comando). Nesse exemplo, não usamos, mas tá aí pra opções futuras.
+
+5. **`Console.WriteLine("Bem-vindo ao Sistema de Vendas!");`**
+   - **O que é?** Um comando que escreve algo na tela.
+   - **Pra que serve?** É como o programa dizer "oi" pra você. O `Console` é a janela preta onde o texto aparece, e `WriteLine` escreve uma linha (com quebra no final).
+   - **Exemplo:** Quando você roda esse código, vai ver "Bem-vindo ao Sistema de Vendas!" no console.
+
+### Como isso funciona na prática?
+Quando você executa esse programa:
+1. O computador acha o `namespace VendasProdutos`.
+2. Dentro dele, localiza a classe `Program`.
+3. Procura o método `Main` (o ponto de entrada).
+4. Executa o que tá dentro do `Main`, que neste caso só escreve uma mensagem.
+
+É o "Olá, mundo!" básico do C#. A partir daí, você pode adicionar mais código dentro do `Main` pra fazer coisas legais, como cálculos ou interações.
+
+### Analogia pra fixar
+Pensa no `namespace` como o nome da sua rua, a `class Program` como sua casa, e o `Main` como a porta de entrada. O `Console.WriteLine` é você gritando da janela pra quem passa na rua. Simples, mas é o começo de tudo!
+
+## Resumo
+Essa estrutura é o mínimo que um programa C# precisa pra rodar. O `namespace` organiza, a `class` guarda o código, e o `Main` é onde a ação começa. Quer testar? Copie esse código, rode num compilador C# (como o Visual Studio), e veja a mensagem aparecer!
+
 
 ## 📊 Tipos de Dados
 
@@ -41,29 +93,153 @@ public class Program
 | `bool`   | Valores lógicos                    | `bool estaAtivo = true;`           |
 | `char`   | Caractere único                    | `char inicial = 'A';`              |
 
-## 🧩 Operadores e Expressões
 
-### Operadores Especiais
-- **Null-Coalescing `??`**: 
-  ```csharp
-  string nome = nomeOriginal ?? "Padrão";
-  ```
-  - **Quando usar**: Definir um valor padrão caso o original seja nulo
-  - **Quando não usar**: Quando precisar de lógica de verificação mais complexa
+# 🧩 Operadores e Expressões em C#
 
-- **Null-Conditional `?.`**:
-  ```csharp
-  int? tamanho = objeto?.PropiedadeNula?.Tamanho;
-  ```
-  - **Quando usar**: Evitar NullReferenceException em chamadas de métodos ou acesso a propriedades
-  - **Quando não usar**: Quando a verificação nula pode alterar significativamente a lógica de negócio
+## Operadores Especiais
 
-- **Expressão Lambda `=>`**:
+C# possui alguns operadores bem úteis. Eles ajudam a lidar com valores nulos (quando algo não existe ou não foi definido) de um jeito simples e elegante. Vamos explorar dois deles: o `??` (null-coalescing) e o `?.` (null-conditional).
+
+### Null-Coalescing `??`
+
+#### Exemplo:
+```csharp
+string nome = nomeOriginal ?? "Padrão";
+```
+
+#### O que é?
+O `??` é como um plano B. Ele diz: "Se o valor da esquerda for nulo, usa o valor da direita". No exemplo, se `nomeOriginal` for `null`, a variável `nome` vai receber `"Padrão"`. Se `nomeOriginal` tiver algo (tipo `"João"`), ele usa esse valor mesmo.
+
+#### Como funciona?
+- Pensa assim: você tá esperando um presente (`nomeOriginal`). Se o presente não chegar (`null`), você pega um reserva que já deixou pronto (`"Padrão"`).
+- O resultado é sempre o primeiro valor não nulo que ele encontra, da esquerda pra direita.
+
+#### Quando usar?
+- **Definir um valor padrão:** Perfeito pra quando você quer garantir que uma variável nunca fique nula. Tipo, se o usuário não digitou um nome, você coloca "Visitante" automaticamente.
+- Exemplo prático:
   ```csharp
-  var produtosCaros = produtos.Where(p => p.Preco > 100);
+  string usuario = entradaDoUsuario ?? "Visitante";
   ```
-  - **Quando usar**: Funções anônimas, filtros em LINQ, delegates simples
-  - **Quando não usar**: Lógicas complexas que prejudicam a legibilidade
+  Se `entradaDoUsuario` for nulo, `usuario` vira `"Visitante"`.
+
+#### Quando não usar?
+- Se você precisa de uma verificação mais complicada, como "se for nulo, faz isso, mas se não for, faz aquilo dependendo de outra coisa". Nesse caso, um `if` é mais claro:
+  ```csharp
+  string nome;
+  if (nomeOriginal == null)
+  {
+      nome = "Padrão";
+  }
+  else
+  {
+      nome = nomeOriginal.ToUpper();
+  }
+  ```
+  Aqui o `??` não daria conta, porque a lógica é mais elaborada.
+
+---
+
+### Null-Conditional `?.`
+
+#### Exemplo:
+```csharp
+int? tamanho = objeto?.PropiedadeNula?.Tamanho;
+```
+
+#### O que é?
+O `?.` é como um detetive cauteloso. Ele checa se algo existe antes de tentar usar. Se qualquer parte da "corrente" for nula, ele para tudo e devolve `null`, sem quebrar o programa com erros.
+
+#### Como funciona?
+- No exemplo, imagine que `objeto` é uma caixa. O `?.` pergunta: "A caixa tá vazia (`null`)?". Se sim, não tenta abrir e já devolve `null`.
+- Se `objeto` existe, ele vai pra próxima parte: `PropiedadeNula`. "Essa propriedade é nula?" Se for, para e devolve `null`.
+- Só chega em `.Tamanho` se tudo antes existir. O `int?` (com o `?`) significa que `tamanho` pode ser um número ou `null`.
+
+#### Quando usar?
+- **Evitar NullReferenceException:** Usa pra navegar por objetos sem medo de um erro chato aparecer. Tipo, você não sabe se o objeto ou suas propriedades existem, mas quer tentar acessar mesmo assim.
+- Exemplo prático:
+  ```csharp
+  string nome = pessoa?.Endereco?.Rua;
+  ```
+  Se `pessoa` ou `Endereco` for nulo, `nome` vira `null` sem drama.
+
+#### Quando não usar?
+- Se o fato de algo ser nulo muda muito o que o programa deve fazer (lógica de negócio), o `?.` pode esconder isso. Nesses casos, um `if` explícito é melhor:
+  ```csharp
+  if (objeto != null && objeto.PropiedadeNula != null)
+  {
+      tamanho = objeto.PropiedadeNula.Tamanho;
+  }
+  else
+  {
+      Console.WriteLine("Algo deu errado!");
+  }
+  ```
+  Aqui, você quer reagir ao `null`, não só ignorar.
+
+---
+
+### Analogia pra fixar
+- **`??`**: É como ter um plano B, caso o plano a não de certo (`null`), você pega um valor reserva.
+- **`?.`**: É como explorar uma caverna com uma lanterna. Se o caminho está bloqueado (`null`), você para e volta, sem cair no buraco.
+
+## Resumo
+- **`??`**: Dá um valor padrão quando algo é nulo. Simples e direto.
+- **`?.`**: Protege contra erros ao acessar coisas que podem não existir. Seguro e esperto.
+
+## O que é uma Expressão Lambda `=>`?
+
+Uma expressão lambda é como um atalho esperto no código: ela permite escrever instruções curtas e rápidas sem precisar criar uma função inteira com nome. É marcada pelo sinal `=>`, que separa o "o que você quer olhar" (os parâmetros) do "o que fazer com isso" (a regra). Vamos ver um exemplo prático:
+
+```csharp
+var produtosCaros = produtos.Where(p => p.Preco > 100);
+```
+
+Aqui, `p => p.Preco > 100` é a expressão lambda. Ela diz: "Pegue cada produto `p` da lista `produtos` e veja se o preço dele é maior que 100". O resultado? Uma nova lista só com os produtos caros.
+
+### Dissecando a Expressão Lambda
+- **`p`**: É um apelido temporário pra cada item da lista `produtos`. Pense como se você estivesse tirando um produto de uma caixa pra olhar. Pode ser qualquer nome, mas `p` é curto e comum.
+- **`=>`**: O "faça isso". Divide o apelido (`p`) da regra que vem depois.
+- **`p.Preco > 100`**: A regra. Diz pro computador: "Checa se o preço desse produto `p` é maior que 100". O `.Preco` é uma propriedade do objeto, como uma etiqueta com o valor.
+
+O `Where` é um filtro que usa essa lambda pra decidir quais itens da lista `produtos` entram na nova lista `produtosCaros`.
+
+## Quando Usar?
+
+Expressões lambda são perfeitas pra tarefas simples e rápidas. Aqui estão os principais usos:
+
+- **Funções Anônimas**: Quando você precisa de uma função curtinha sem nome. Em vez de criar algo separado, escreve tudo ali no `=>`.
+- **Filtros em LINQ**: Pra filtrar listas em C# (como o `Where`), ordenar (`OrderBy`) ou transformar dados. Exemplo: "Quero só os produtos acima de 100 reais".
+- **Delegates Simples**: Pra passar instruções curtas pra outros métodos, como um mensageiro levando uma mensagem rápida.
+
+Exemplos práticos:
+```csharp
+var baratos = produtos.Where(p => p.Preco < 50); // Filtra produtos baratos
+var ordenados = produtos.OrderBy(p => p.Nome);   // Ordena por nome
+```
+
+## Quando Não Usar?
+
+Se a lógica fica complicada, com muitas condições ou passos, a lambda pode virar um emaranhado difícil de ler. Por exemplo:
+
+```csharp
+var confusos = produtos.Where(p => p.Preco > 100 && p.Estoque < 10 || p.Nome.Contains("X"));
+```
+
+Nesse caso, é melhor criar uma função normal pra manter o código claro:
+
+```csharp
+bool FiltrarProduto(Produto p)
+{
+    return p.Preco > 100 && p.Estoque < 10;
+}
+var produtosFiltrados = produtos.Where(FiltrarProduto);
+```
+
+## Resumo
+Pense na lambda como um pedido rápido no drive-thru: "Me dá só o que custa mais de 10 reais". É prático e direto. Mas se o pedido vira uma receita complexa, melhor chamar um chef (ou seja, escrever uma função completa).
+
+Dúvidas? Teste o código e veja como funciona na prática!
+```
 
 ## 🔤 Manipulação de Strings
 
@@ -245,6 +421,211 @@ catch (Exception ex)
 finally 
 {
     LimparRecursos();
+}
+```
+
+## 📊 Recursos Avançados do .NET
+
+### 🔧 Assemblies no .NET
+```csharp
+// Referenciando e trabalhando com Assemblies
+using System.Reflection;
+
+// Carregando um assembly dinamicamente
+Assembly assembly = Assembly.LoadFrom("MinhaLibraria.dll");
+
+// Obtendo tipos do assembly
+Type[] tipos = assembly.GetTypes();
+
+// Criando instância de um tipo
+object instancia = Activator.CreateInstance(assembly.GetType("NomeClasse"));
+```
+
+### 🔀 Programação Assíncrona com async e await
+```csharp
+public async Task<string> BuscarDadosAsync()
+{
+    using (HttpClient client = new HttpClient())
+    {
+        // Operação assíncrona
+        string resultado = await client.GetStringAsync("https://api.exemplo.com/dados");
+        return resultado;
+    }
+}
+
+// Chamando método assíncrono
+await BuscarDadosAsync();
+```
+
+### 📌 Atributos em C#
+```csharp
+// Definindo um atributo personalizado
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+public class MinhaDescricaoAttribute : Attribute
+{
+    public string Descricao { get; }
+    
+    public MinhaDescricaoAttribute(string descricao)
+    {
+        Descricao = descricao;
+    }
+}
+
+// Utilizando o atributo
+[MinhaDescricao("Classe de processamento de dados")]
+public class ProcessadorDados
+{
+    [MinhaDescricao("Método principal de processamento")]
+    public void Processar() { }
+}
+```
+
+### 🗃️ Coleções Avançadas em C#
+```csharp
+// Dictionary com métodos avançados
+Dictionary<string, Produto> produtos = new Dictionary<string, Produto>();
+produtos.TryAdd("Notebook", novoProduto);  // Adiciona se chave não existir
+
+// HashSet para conjuntos únicos
+HashSet<string> categorias = new HashSet<string> 
+{
+    "Eletrônicos", 
+    "Roupas", 
+    "Alimentos"
+};
+
+// Fila e pilha
+Queue<Pedido> filaPedidos = new Queue<Pedido>();
+Stack<Transacao> pilhaTransacoes = new Stack<Transacao>();
+```
+
+### 🔄 Covariância e Contravariância
+```csharp
+// Covariância
+IEnumerable<Produto> produtos = new List<ProdutoEletronico>();
+
+// Contravariância
+Action<Produto> processarProduto = (p) => { /* ... */ };
+Action<ProdutoEletronico> processarEletronico = processarProduto;
+```
+
+### 🌳 Árvores de Expressão
+```csharp
+// Criando uma árvore de expressão
+Expression<Func<int, bool>> ehPar = x => x % 2 == 0;
+
+// Compilando e executando
+Func<int, bool> funcaoCompiladaEhPar = ehPar.Compile();
+bool resultado = funcaoCompiladaEhPar(10);  // true
+```
+
+### 🔁 Iteradores em C#
+```csharp
+public class GeradorSequencia
+{
+    public IEnumerable<int> GerarSequenciaFibonacci()
+    {
+        int a = 0, b = 1;
+        while (true)
+        {
+            yield return a;
+            int temp = a;
+            a = b;
+            b = temp + b;
+        }
+    }
+}
+```
+
+### 🔬 Reflexão em C#
+```csharp
+Type tipoClasse = typeof(Produto);
+
+// Obtendo informações sobre membros
+MethodInfo[] metodos = tipoClasse.GetMethods();
+PropertyInfo[] propriedades = tipoClasse.GetProperties();
+
+// Criando instância dinamicamente
+object instancia = Activator.CreateInstance(tipoClasse);
+```
+
+### 💾 Serialização em C#
+```csharp
+// Serialização JSON
+string jsonProduto = JsonSerializer.Serialize(produto);
+
+// Serialização XML
+XmlSerializer serializer = new XmlSerializer(typeof(Produto));
+using (FileStream stream = new FileStream("produto.xml", FileMode.Create))
+{
+    serializer.Serialize(stream, produto);
+}
+```
+
+### Sintaxes Adicionais
+
+#### Palavra-chave `new`
+```csharp
+// Inicialização simplificada
+List<int> numeros = new() { 1, 2, 3, 4, 5 };
+
+// Construtor com parâmetros
+public class Produto 
+{
+    public Produto(string nome) => Nome = nome;
+}
+```
+
+#### Modificador `params`
+```csharp
+public void ProcessarProdutos(params Produto[] produtos)
+{
+    foreach (var produto in produtos)
+    {
+        // Processar cada produto
+    }
+}
+
+// Chamada com múltiplos argumentos
+ProcessarProdutos(prod1, prod2, prod3);
+```
+
+#### Buffer e Span
+```csharp
+Span<byte> buffer = stackalloc byte[100];
+buffer.Clear();
+```
+
+#### Campos privados com `_`
+```csharp
+public class Produto 
+{
+    private string _nome;
+    private decimal _preco;
+
+    public string Nome 
+    {
+        get => _nome;
+        set => _nome = value;
+    }
+}
+```
+
+#### Classe Parcial `partial`
+```csharp
+// Arquivo Produto.cs
+public partial class Produto 
+{
+    public string Nome { get; set; }
+}
+
+// Arquivo Produto.Validacao.cs
+public partial class Produto 
+{
+    public bool Validar() 
+    {
+        return !string.IsNullOrEmpty(Nome);
+    }
 }
 ```
 
