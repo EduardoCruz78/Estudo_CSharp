@@ -179,7 +179,7 @@ O `?.` é como um detetive cauteloso. Ele checa se algo existe antes de tentar u
 ---
 
 ### Analogia pra fixar
-- **`??`**: É como ter um plano B, caso o plano a não de certo (`null`), você pega um valor reserva.
+- **`??`**: É como ter um plano B, caso o plano A não de certo (`null`), você pega um valor reserva padrão.
 - **`?.`**: É como explorar uma caverna com uma lanterna. Se o caminho está bloqueado (`null`), você para e volta, sem cair no buraco.
 
 ## Resumo
@@ -395,11 +395,6 @@ do
 - **Interpolação de Strings**: Mistura texto e variáveis com `$` e `{}`, fácil e elegante.
 - **Condicionais**: Decide o que fazer com `if` e `else`.
 - **Laços**: Repete ações com `for`, `foreach`, `while` e `do-while`, cada um pro seu momento.
-
-Teste esses exemplos num código C# pra ver na prática! Se precisar de mais detalhes, é só pedir!
-```
-
-Esse README tá bem explicado, com exemplos práticos e analogias pra fixar os conceitos. Ele é perfeito pra quem tá começando ou quer um guia rápido. Se quiser ajustar ou adicionar algo, é só avisar!
 
 ## 📦 Coleções e Estruturas de Dados
 
