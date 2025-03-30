@@ -2390,8 +2390,6 @@ Instância criada: Mouse
 
 ---
 
-Aqui está a versão atualizada e expandida das seções "Serialização em C#" e "Sintaxes Adicionais" dentro do seu README. Vou seguir o mesmo padrão didático, claro e profundo que usamos antes, como na "Estrutura Básica de um Programa". Vou dissecar cada conceito, explicar o código com detalhes, trazer exemplos práticos, analogias e um tom amigável pra tornar o aprendizado mais envolvente e acessível. Vamos mergulhar nisso!
-
 ---
 
 ### 💾 Serialização em C#
@@ -2646,20 +2644,295 @@ Válido? True
 
 ## 🚀 Exercícios Práticos
 
-### Exercício 1: Gerenciamento de Estoque
-1. Crie uma classe `Produto` com `Nome`, `Preco`, `Quantidade`.
-2. Implemente:
-   - Adicionar ao estoque.
-   - Remover do estoque.
-   - Listar produtos com quantidade baixa (ex.: < 10).
-
-### Exercício 2: Sistema de Descontos
-1. Crie uma lógica de desconto baseada em:
-   - Valor total da compra.
-   - Quantidade de itens.
-   - Produtos específicos.
+Aqui está uma lista revisada e expandida de exercícios simples no contexto de venda de produtos, cobrindo cada sintaxe, método, operador e conceito mencionado no "Guia Completo de Sintaxes e Conceitos em C#". Cada exercício é projetado para praticar um item específico da lista anterior, mantendo o tema de vendas de produtos. Quando possível, relacionei os exercícios para que eles se complementem, formando um sistema coeso de gerenciamento de vendas. Os exercícios incluem instruções claras sobre o que fazer, sem respostas, como você pediu. Vamos lá!
 
 ---
+
+### **Exercícios Práticos no Contexto de Venda de Produtos**
+
+#### **1. Fundamentos da Linguagem**
+- **`namespace`**  
+  - Crie um programa com um `namespace` chamado `LojaVirtual` que contenha uma classe para gerenciar produtos.
+- **`class`**  
+  - Defina uma `class Produto` com propriedades básicas como `Nome` e `Preco`.
+- **`public`**  
+  - Torne a classe `Produto` acessível fora do seu namespace usando o modificador `public`.
+- **`static`**  
+  - Crie um método `static` na classe `Program` para exibir uma mensagem de boas-vindas ao iniciar a loja.
+- **`void`**  
+  - Implemente um método `void` em `Produto` que imprima os detalhes do produto no console.
+- **`Main`**  
+  - Configure o método `Main` para criar um produto e chamar seu método de exibição.
+- **`string[] args`**  
+  - Modifique o `Main` para aceitar argumentos da linha de comando e criar um produto com base no primeiro argumento como nome.
+- **`Console.WriteLine`**  
+  - Use `Console.WriteLine` para exibir o estoque total de um produto após uma venda.
+- **`;`**  
+  - Escreva um programa simples que declare variáveis para um produto e termine cada linha corretamente com `;`.
+- **`{ }`**  
+  - Organize o código da classe `Produto` com chaves `{ }` para definir claramente o escopo do método de exibição.
+
+---
+
+#### **2. Tipos de Dados**
+- **`int`**  
+  - Adicione uma propriedade `Quantidade` do tipo `int` à classe `Produto` para rastrear o estoque.
+- **`long`**  
+  - Crie uma propriedade `CodigoBarras` do tipo `long` em `Produto` para suportar códigos grandes.
+- **`double`**  
+  - Use `double` para calcular o preço médio de uma lista de produtos vendidos.
+- **`float`**  
+  - Adicione uma propriedade `DescontoPercentual` do tipo `float` em `Produto` para aplicar descontos leves.
+- **`decimal`**  
+  - Modifique a propriedade `Preco` de `Produto` para usar `decimal` e garantir precisão em cálculos financeiros.
+- **`bool`**  
+  - Inclua uma propriedade `EmPromocao` do tipo `bool` em `Produto` para indicar se está em oferta.
+- **`char`**  
+  - Crie uma propriedade `CategoriaInicial` do tipo `char` em `Produto` para marcar a inicial da categoria (ex.: 'E' para Eletrônicos).
+- **`f`**  
+  - Defina um desconto fixo como `0.10f` e aplique-o ao preço de um produto.
+- **`L`**  
+  - Atribua um valor como `9876543210123L` ao `CodigoBarras` de um produto.
+- **`m`**  
+  - Defina o preço de um produto como `19.99m` para usar em cálculos precisos.
+- **`'`**  
+  - Atribua o valor `'C'` à propriedade `CategoriaInicial` de um produto chamado "Camiseta".
+
+---
+
+#### **3. Operadores e Expressões**
+- **`??`**  
+  - Crie um método que retorne o nome de um produto ou "Sem Nome" se for `null` usando `??`.
+- **`?.`**  
+  - Implemente uma função que acesse o preço de um produto apenas se ele não for `null` com `?.`.
+- **`=>`**  
+  - Escreva uma expressão lambda para filtrar produtos com preço maior que 50 reais.
+- **`>`**  
+  - Verifique se o preço de um produto é maior que 100 reais e exiba uma mensagem.
+- **`&&`**  
+  - Liste produtos que têm preço acima de 50 reais E quantidade abaixo de 10 unidades.
+- **`||`**  
+  - Mostre produtos que estão em promoção OU têm estoque baixo (< 5 unidades).
+- **`==`**  
+  - Compare se dois produtos têm o mesmo preço usando `==`.
+- **`%`**  
+  - Calcule se a quantidade em estoque de um produto é par usando o operador `%`.
+- **`+`**  
+  - Concatene o nome e o preço de um produto em uma string usando `+`.
+- **`.`**  
+  - Acesse a propriedade `Nome` de um produto para exibi-la no console.
+- **`()`**  
+  - Crie um método que calcule o preço total `(preco * quantidade)` e retorne o resultado.
+
+---
+
+#### **4. Estruturas de Controle**
+- **`if`**  
+  - Verifique se o estoque de um produto é menor que 10 e exiba "Repor estoque" se verdadeiro.
+- **`else`**  
+  - Adicione um `else` ao exercício anterior para exibir "Estoque suficiente" se o estoque for >= 10.
+- **`for`**  
+  - Use um laço `for` para listar os primeiros 5 produtos de uma lista de vendas.
+- **`++`**  
+  - Incremente a quantidade de um produto em estoque após uma reposição usando `++`.
+- **`foreach`**  
+  - Itere sobre uma lista de produtos e imprima o nome de cada um.
+- **`in`**  
+  - Use `foreach` com `in` para exibir os preços de todos os produtos em uma coleção.
+- **`while`**  
+  - Reduza o estoque de um produto com `while` até chegar a 0, simulando vendas.
+- **`--`**  
+  - Decremente o estoque de um produto após cada venda usando `--`.
+- **`do`**  
+  - Crie um laço `do-while` que processe vendas de um produto enquanto o estoque for maior que 0.
+
+---
+
+#### **5. Manipulação de Strings**
+- **`Trim`**  
+  - Remova espaços extras do nome de um produto digitado pelo usuário com `Trim`.
+- **`Replace`**  
+  - Substitua " " por "-" no nome de um produto para criar um código de URL.
+- **`Contains`**  
+  - Verifique se o nome de um produto contém "Promo" para identificar promoções.
+- **`ToUpper`**  
+  - Converta o nome de um produto para maiúsculas antes de exibi-lo.
+- **`ToLower`**  
+  - Converta o nome de um produto para minúsculas para padronizar uma busca.
+- **`Length`**  
+  - Exiba quantos caracteres tem o nome de um produto.
+- **`StartsWith`**  
+  - Liste produtos cujo nome começa com "C" (como "Camiseta").
+
+---
+
+#### **6. Interpolação de Strings**
+- **`$`**  
+  - Crie uma mensagem interpolada com o nome e preço de um produto: `$"Produto: {nome}, Preço: {preco}"`.
+- **`{}`**  
+  - Use chaves em uma string interpolada para mostrar a quantidade em estoque.
+- **`:C2`**  
+  - Formate o preço de um produto como moeda com 2 casas decimais em uma string interpolada.
+- **`ToString`**  
+  - Converta o preço de um produto para string com formato "C" e exiba no console.
+
+---
+
+#### **7. Coleções e Estruturas de Dados**
+- **`List<T>`**  
+  - Crie uma `List<Produto>` para armazenar todos os produtos da loja.
+- **`Add`**  
+  - Adicione um novo produto à lista de produtos com `Add`.
+- **`Count`**  
+  - Exiba quantos produtos estão na lista usando `Count`.
+- **`Sort`**  
+  - Ordene a lista de produtos por preço usando `Sort`.
+- **`IndexOf`**  
+  - Encontre a posição de um produto específico na lista com `IndexOf`.
+- **`[]`**  
+  - Acesse o primeiro produto da lista e exiba seu nome usando o operador de índice.
+- **`int[]`**  
+  - Crie um array fixo com os IDs dos últimos 5 produtos vendidos.
+- **`^`**  
+  - Pegue o último produto vendido de um array usando o operador `^`.
+- **`..`**  
+  - Extraia os 3 produtos do meio de um array de vendas usando o operador `..`.
+
+---
+
+#### **8. LINQ e Consultas**
+- **`Where`**  
+  - Filtre uma lista de produtos para mostrar apenas os que têm preço acima de 100 reais.
+- **`OrderBy`**  
+  - Ordene uma lista de produtos por nome em ordem alfabética.
+- **`OrderByDescending`**  
+  - Liste produtos em ordem decrescente de preço.
+- **`from`**  
+  - Use a sintaxe de consulta para selecionar todos os produtos de uma lista.
+- **`where`** (LINQ)  
+  - Na sintaxe de consulta, filtre produtos com estoque menor que 5.
+- **`orderby`**  
+  - Ordene produtos por quantidade em estoque na sintaxe de consulta.
+- **`select`**  
+  - Selecione apenas os nomes dos produtos em uma consulta LINQ.
+- **`descending`**  
+  - Use `descending` na sintaxe de consulta para listar produtos do mais caro ao mais barato.
+
+---
+
+#### **9. Sintaxes Avançadas**
+- **`checked`**  
+  - Use `checked` para verificar overflow ao somar preços de produtos até ultrapassar `int.MaxValue`.
+- **`OverflowException`**  
+  - Capture uma `OverflowException` ao tentar somar preços grandes em um contexto `checked`.
+- **`unchecked`**  
+  - Demonstre o comportamento padrão de overflow ao somar preços grandes sem `checked`.
+- **`int.MaxValue`**  
+  - Compare o preço total de uma venda com `int.MaxValue` para verificar limites.
+- **`DateOnly`**  
+  - Registre a data de validade de um produto usando `DateOnly`.
+- **`DayOfWeek`**  
+  - Exiba o dia da semana da data de validade de um produto.
+- **`Year`**  
+  - Verifique se a data de validade de um produto é deste ano.
+
+---
+
+#### **10. Recursos Avançados do .NET**
+- **`Dictionary<TKey, TValue>`**  
+  - Crie um `Dictionary<string, Produto>` para acessar produtos por código.
+- **`TryAdd`**  
+  - Adicione um produto ao `Dictionary` usando `TryAdd` e verifique se já existe.
+- **`HashSet<T>`**  
+  - Use um `HashSet<string>` para listar categorias de produtos sem duplicatas.
+- **`Queue<T>`**  
+  - Simule uma fila de pedidos pendentes com `Queue<Pedido>`.
+- **`Enqueue`**  
+  - Adicione um pedido à fila de processamento.
+- **`Dequeue`**  
+  - Processe o próximo pedido da fila removendo-o com `Dequeue`.
+- **`Stack<T>`**  
+  - Use um `Stack<Transacao>` para rastrear as últimas vendas realizadas.
+- **`Push`**  
+  - Adicione uma nova transação ao topo da pilha de vendas.
+- **`Pop`**  
+  - Reverta a última venda removendo-a da pilha com `Pop`.
+- **`Peek`**  
+  - Verifique os detalhes da última venda na pilha sem removê-la.
+- **`out`**  
+  - Crie uma interface covariante `IEnumerable<out Produto>` para listar produtos e derivados.
+- **`in`**  
+  - Crie um delegate contravariante `Action<in Produto>` para processar produtos genéricos.
+- **`Expression<T>`**  
+  - Crie uma expressão lambda para verificar se o preço de um produto é par.
+- **`Compile`**  
+  - Compile a expressão anterior e use-a para testar produtos.
+- **`Func<T, TResult>`**  
+  - Defina um `Func<Produto, bool>` para verificar se um produto está em promoção.
+- **`yield return`**  
+  - Crie um iterador que gere uma sequência de preços promocionais.
+- **`IEnumerable<T>`**  
+  - Retorne uma lista de produtos em promoção usando `IEnumerable<Produto>`.
+- **`typeof`**  
+  - Use `typeof(Produto)` para inspecionar os detalhes da classe `Produto`.
+- **`GetMethods`**  
+  - Liste todos os métodos da classe `Produto` usando reflexão.
+- **`GetProperties`**  
+  - Liste todas as propriedades de `Produto` com reflexão.
+- **`Activator.CreateInstance`**  
+  - Crie uma instância de `Produto` dinamicamente usando `Activator`.
+- **`JsonSerializer.Serialize`**  
+  - Serializar um produto para JSON e exibir o resultado.
+- **`XmlSerializer`**  
+  - Serializar um produto para XML e salvar em um arquivo.
+- **`Serialize`** (XML)  
+  - Escreva os dados de um produto em um arquivo XML.
+- **`new()`**  
+  - Crie uma lista de produtos com a sintaxe simplificada `new()`: `List<Produto> produtos = new();`.
+- **`params`**  
+  - Crie um método que aceite um número variável de produtos para processar vendas.
+- **`Span<T>`**  
+  - Use `Span<byte>` para armazenar temporariamente os preços de produtos em memória.
+- **`stackalloc`**  
+  - Aloque um `Span` na stack para processar IDs de produtos.
+- **`Clear`** (Span)  
+  - Limpe o `Span` após usar os dados de preços.
+- **`_`** (convenção)  
+  - Adicione um campo privado `_estoque` à classe `Produto`.
+- **`partial`**  
+  - Divida a classe `Produto` em dois arquivos usando `partial`, um para propriedades e outro para métodos.
+
+---
+
+### **Exercícios Relacionados e Expandidos**
+Agora, revisitando os dois exercícios originais do seu documento, vou integrá-los ao contexto dos novos exercícios, aproveitando as relações entre os conceitos:
+
+#### **Exercício 1: Gerenciamento de Estoque**
+- **O que fazer:**
+  1. Crie uma classe `Produto` com propriedades `Nome` (string), `Preco` (decimal), `Quantidade` (int) e um campo privado `_estoque` (usando convenção `_`).
+  2. Implemente métodos:
+     - `AdicionarAoEstoque(int qtd)`: Use `++` ou `+=` para aumentar `_estoque` e retorne o novo valor como `IEnumerable<int>` com `yield return`.
+     - `RemoverDoEstoque(int qtd)`: Use `--` ou `-=` para reduzir `_estoque`, verificando com `if` se há estoque suficiente, lançando `OverflowException` em `checked` se negativo.
+     - `ListarBaixaQuantidade(List<Produto> produtos)`: Use `Where` ou `from...where` para filtrar produtos com `_estoque < 10`, ordenando por `OrderBy` com nome.
+  3. Teste criando uma `List<Produto>` com `new()`, adicionando produtos com `Add`, e exibindo resultados com `Console.WriteLine` e interpolação `$`.
+
+#### **Exercício 2: Sistema de Descontos**
+- **O que fazer:**
+  1. Crie uma lógica de desconto na classe `Produto` com:
+     - `CalcularDescontoPorValor(decimal total)`: Use `if` e `>` para aplicar `float` (ex.: 0.15f) se `total > 500m`, retornando o desconto em `decimal`.
+     - `CalcularDescontoPorQuantidade(int qtd)`: Use `&&` e `==` para dar desconto se `qtd > 5 && EmPromocao == true`, aplicando `params Produto[]` para múltiplos itens.
+     - `AplicarDescontoEspecifico(string nome)`: Use `Contains` ou `StartsWith` para verificar se o `Nome.ToLower()` contém "promo" e aplique `DescontoPercentual`.
+  2. Armazene produtos em um `Dictionary<string, Produto>` (chave = nome) e use `TryAdd` para evitar duplicatas.
+  3. Exiba os descontos com `foreach`, formatando com `:C2` em uma string interpolada, e serialize o resultado para JSON com `JsonSerializer.Serialize`.
+
+---
+
+### **Como os Exercícios se Relacionam**
+- **Gerenciamento de Estoque** serve como base: cria a classe `Produto` e gerencia a lista de produtos que será usada em outros exercícios.
+- **Sistema de Descontos** expande isso: usa a mesma classe `Produto`, aplicando lógica avançada de descontos e integrando coleções como `Dictionary`.
+- Outros exercícios (ex.: `Queue` para pedidos, `Stack` para transações, `LINQ` para consultas) podem ser vistos como extensões do sistema, como processar vendas, rastrear histórico ou filtrar dados.
+
+Se quiser, posso detalhar mais algum exercício ou sugerir como conectá-los num único programa maior! O que acha?
 
 ## 🏆 Dicas Finais
 1. Use `checked` em operações críticas para evitar erros silenciosos.
