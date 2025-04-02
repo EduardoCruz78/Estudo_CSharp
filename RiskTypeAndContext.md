@@ -454,57 +454,91 @@ A `RiskType` é como uma etiqueta que dá nome aos riscos. Por exemplo, um risco
 
 ---
 
-## 8. Ações para os Riscos com `RiskActionEntityTypeConfiguration`
+## 8. Controlando os Tipos de Risco pela Internet: `RiskTypesController`
 
-Por fim, temos a caixa `RiskAction`, que guarda as ações para lidar com os riscos. Essa classe organiza como essas ações são guardadas, mas ela não se conecta diretamente com `RiskType` — ela trabalha com os riscos que já têm um tipo.
+Imagine que você quer usar as caixas `RiskType` pelo celular ou computador, como se fosse um aplicativo. A classe `RiskTypesController` é como uma janela na internet que deixa você listar, criar e mudar os tipos de risco. Ela funciona como um atendente que recebe seus pedidos e faz o trabalho para você.
 
 ### Código
 ```csharp
-namespace Qualyteam.Risks.Infrastructure.Persistence.EntityConfigurations;
+namespace Qualyteam.Risks.Api.Controllers;
 
-public sealed class RiskActionEntityTypeConfiguration : IEntityTypeConfiguration<RiskAction>
+[Authorize]
+[Route("api/risk-types")]
+public sealed class RiskTypesController(
+    IMediator mediator
+) : BaseController(mediator)
 {
-    public void Configure(EntityTypeBuilder<RiskAction> builder)
-    {
-        builder.ToTable("RiskActions");
-        
-        builder.ConfigureEntityConventions();
+    [HttpGet]
+    [ProducesResponseType(typeof(IEnumerable<RiskTypeViewModel>), StatusCodes.Status200OK)]
+    public async Task<ActionResult> ListActives()
+        => CustomResponse(await _mediator.Send(new ListActiveRiskTypesQuery()));
 
-        builder.OwnsOne(ra => ra.Planning, riskActionPlanning => { /* Configurações do planejamento */ });
-        
-        builder.OwnsOne(ra => ra.Implementation, riskActionImplementation => { /* Configurações da implementação */ });
+    [HttpPost]
+    [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status422UnprocessableEntity)]
+    public async Task<ActionResult> Create([FromBody] CreateRiskTypeCommand command)
+        => CustomResponse(await _mediator.Send(command));
 
-        builder.Property(ra => ra.RiskManagementCycleId)
-            .IsRequired();
-
-        builder.HasOne(ra => ra.RiskManagementCycle)
-            .WithMany(rmc => rmc.Actions)
-            .HasForeignKey(ra => ra.RiskManagementCycleId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        builder.Property(ra => ra.Status)
-            .IsRequired();
-        
-        builder.Property(ra => ra.EmailStatus)
-            .IsRequired();
-    }
+    [HttpPut("{id:Guid}")]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status422UnprocessableEntity)]
+    public async Task<ActionResult> UpdateName(Guid id, [FromBody] UpdateRiskTypeNamePayload payload)
+        => CustomResponse(await _mediator.Send(payload.AsCommand(id)));
 }
 ```
 
 ### Explicação Passo a Passo
-1. **`namespace Qualyteam.Risks.Infrastructure.Persistence.EntityConfigurations;`**
-   - O mesmo endereço do mapa dos riscos, agora para as ações.
+1. **`namespace Qualyteam.Risks.Api.Controllers;`**
+   - Esse é o endereço da janela, que fica na área de controle da internet (API) do módulo de riscos. É onde as pessoas encontram essa ferramenta.
 
-2. **`public sealed class RiskActionEntityTypeConfiguration : IEntityTypeConfiguration<RiskAction>`**
-   - Essa é a organizadora da caixa `RiskAction`, que diz como guardar as ações no banco.
+2. **`[Authorize]`**
+   - Isso é como uma tranca na porta. Só quem tem a chave (como um login e senha) pode entrar e usar essa janela.
 
-3. **`builder.ToTable("RiskActions");`**
-   - As ações vão para uma gaveta chamada "RiskActions".
+3. **`[Route("api/risk-types")]`**
+   - Esse é o caminho que você digita no navegador ou aplicativo para chegar aqui, tipo "www.exemplo.com/api/risk-types". É o nome da janela na internet.
 
-4. **`builder.HasOne(ra => ra.RiskManagementCycle).WithMany(rmc => rmc.Actions).HasForeignKey(ra => ra.RiskManagementCycleId);`**
-   - Cada ação está ligada a um ciclo de gerenciamento de riscos, que por sua vez está ligado a um risco (do item 7). O `Cascade` significa que, se o ciclo for apagado, as ações vão junto.
+4. **`public sealed class RiskTypesController : BaseController`**
+   - Aqui criamos o atendente, chamado `RiskTypesController`. Ele é "selado" (`sealed`), ou seja, ninguém pode mudar como ele funciona. Ele herda regras de um atendente mais básico (`BaseController`).
+
+5. **`RiskTypesController(IMediator mediator) : BaseController(mediator)`**
+   - O atendente precisa de um ajudante chamado `mediator`, que é como um carteiro. Ele leva os pedidos (como "liste os tipos de risco") para quem sabe fazer o trabalho e traz as respostas de volta.
+
+6. **`[HttpGet]` e `public async Task<ActionResult> ListActives()`**
+   - Esse é o botão "Listar". Quando alguém acessa "api/risk-types" com o método GET (como clicar num link), o atendente pede ao carteiro (`_mediator`) para buscar todos os tipos de risco ativos (usando `ListActiveRiskTypesQuery`). O `async` significa que ele espera a resposta com calma.
+   - **Resposta:** Ele devolve uma lista de caixas `RiskType` (como "Economic") em um formato chamado `RiskTypeViewModel`, com o código `200 OK` (tudo certo!).
+
+7. **`[HttpPost]` e `public async Task<ActionResult> Create([FromBody] CreateRiskTypeCommand command)`**
+   - Esse é o botão "Criar". Quando alguém envia um pedido POST (como preencher um formulário) para "api/risk-types" com informações (em `command`), o atendente passa isso ao carteiro para criar uma nova caixa `RiskType`.
+   - **Respostas:**
+     - Se der certo, devolve o número da nova caixa (`Guid`) com o código `201 Created` (criado com sucesso!).
+     - Se algo estiver errado (como um nome inválido), devolve um erro com o código `422 Unprocessable Entity` (não consegui processar).
+
+8. **`[HttpPut("{id:Guid}")]` e `public async Task<ActionResult> UpdateName(Guid id, [FromBody] UpdateRiskTypeNamePayload payload)`**
+   - Esse é o botão "Mudar Nome". Quando alguém envia um pedido PUT (como editar algo) para "api/risk-types/123" (onde `123` é o `id` da caixa), o atendente pega o número (`id`) e as novas informações (`payload`) e pede ao carteiro para mudar o nome da caixa `RiskType`.
+   - **Respostas:**
+     - Se der certo, devolve o código `204 No Content` (feito, sem nada para mostrar).
+     - Se a caixa não for encontrada, devolve `404 Not Found` (não achei!).
+     - Se algo estiver errado, devolve `422 Unprocessable Entity` (não consegui processar).
 
 ### Como Isso Se Conecta com `RiskType`?
-A conexão aqui é indireta. A `RiskAction` ajuda a resolver um risco (`Risk`), e esse risco tem um tipo (`RiskType`). Por exemplo, se o risco "Falta de Dinheiro" é do tipo "Economic", a ação pode ser "Economizar mais". A `RiskActionEntityTypeConfiguration` organiza as ações, mas depende do risco já ter um `RiskType` definido.
+A `RiskTypesController` é a ponte entre o mundo da internet e as caixas `RiskType`. Ela permite:
+- **Listar:** Pegar todas as caixas `RiskType` que estão ativas (`IsActive = true`).
+- **Criar:** Fazer uma nova caixa `RiskType` com um nome que você enviar.
+- **Mudar:** Alterar o nome de uma caixa `RiskType` que já existe, usando o `id` dela.
+
+O carteiro (`mediator`) leva esses pedidos para outras partes do programa que sabem mexer nas caixas `RiskType` (como criar ou atualizar no banco de dados). Assim, você pode gerenciar os tipos de risco de qualquer lugar com internet!
 
 ---
+
+## Resumo
+- **`EntityBase`**: Dá o número e as datas para todas as caixas.
+- **`EntitySoftDeletedBase`**: Permite guardar caixas sem apagar.
+- **`IHasCompanyId`**: Coloca um dono em cada caixa.
+- **`RiskType`**: Uma caixa para tipos de risco, como "Economic".
+- **`ClearDataTrialIntegrationEventHandler`**: Faz uma faxina nas caixas de uma empresa.
+- **`RiskTypeMother`**: Cria exemplos de `RiskType` para testes.
+- **`RiskEntityTypeConfiguration`**: Liga os riscos aos tipos de risco.
+- **`RiskActionEntityTypeConfiguration`**: Organiza as ações para os riscos.
+- **`RiskTypesController`**: Deixa você usar as caixas `RiskType` pela internet.
+
